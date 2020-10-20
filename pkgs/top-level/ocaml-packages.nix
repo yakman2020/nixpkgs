@@ -101,13 +101,7 @@ let
       libpng = pkgs.libpng12;
       giflib = pkgs.giflib_4_1;
     };
-    camlimages_4_1 = callPackage ../development/ocaml-modules/camlimages/4.1.nix {
-      giflib = pkgs.giflib_4_1;
-    };
-    camlimages =
-          if lib.versionOlder "4.06" ocaml.version
-          then callPackage ../development/ocaml-modules/camlimages { }
-          else camlimages_4_1;
+    camlimages = callPackage ../development/ocaml-modules/camlimages { };
 
     benchmark = callPackage ../development/ocaml-modules/benchmark { };
 
@@ -322,6 +316,10 @@ let
       inherit (pkgs) gnuplot;
     };
 
+    gsl = callPackage ../development/ocaml-modules/gsl {
+      inherit (pkgs) gsl;
+    };
+
     hacl_x25519 = callPackage ../development/ocaml-modules/hacl_x25519 { };
 
     herelib = callPackage ../development/ocaml-modules/herelib { };
@@ -351,8 +349,6 @@ let
     ipaddr-cstruct = callPackage ../development/ocaml-modules/ipaddr/cstruct.nix { };
 
     ipaddr-sexp = callPackage ../development/ocaml-modules/ipaddr/sexp.nix { };
-
-    irmin_1 = callPackage ../development/ocaml-modules/irmin/1.4.nix { };
 
     iso8601 = callPackage ../development/ocaml-modules/iso8601 { };
 
@@ -995,6 +991,10 @@ let
 
     yojson = callPackage ../development/ocaml-modules/yojson { };
 
+    z3 = callPackage ../development/ocaml-modules/z3 {
+      inherit (pkgs) z3;
+    };
+
     zarith = callPackage ../development/ocaml-modules/zarith { };
 
     zed = callPackage ../development/ocaml-modules/zed { };
@@ -1048,25 +1048,10 @@ let
 
     buildOcamlJane = callPackage ../development/ocaml-modules/janestreet/buildOcamlJane.nix {};
 
-    ppx_core =
-      if lib.versionOlder "4.03" ocaml.version
-      then janeStreet.ppx_core
-      else callPackage ../development/ocaml-modules/janestreet/ppx-core.nix {};
-
     ppx_optcomp =
       if lib.versionOlder "4.03" ocaml.version
       then janeStreet.ppx_optcomp
       else callPackage ../development/ocaml-modules/janestreet/ppx-optcomp.nix {};
-
-    ppx_driver =
-      if lib.versionOlder "4.03" ocaml.version
-      then janeStreet.ppx_driver
-      else callPackage ../development/ocaml-modules/janestreet/ppx-driver.nix {};
-
-    ppx_type_conv =
-      if lib.versionOlder "4.03" ocaml.version
-      then janeStreet.ppx_type_conv
-      else callPackage ../development/ocaml-modules/janestreet/ppx-type-conv.nix {};
 
     ppx_compare =
       if lib.versionOlder "4.03" ocaml.version
@@ -1112,11 +1097,6 @@ let
       if lib.versionOlder "4.03" ocaml.version
       then janeStreet.ppx_enumerate
       else callPackage ../development/ocaml-modules/janestreet/ppx-enumerate.nix {};
-
-    ppx_fail =
-      if lib.versionOlder "4.03" ocaml.version
-      then janeStreet.ppx_fail
-      else callPackage ../development/ocaml-modules/janestreet/ppx-fail.nix {};
 
     ppx_fields_conv =
       if lib.versionOlder "4.03" ocaml.version
