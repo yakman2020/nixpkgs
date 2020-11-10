@@ -1,14 +1,14 @@
-{ stdenvNoCC, fetchFromGitHub, cmake, clang, llvm, python, python3, doxygen, openssl, glibc, bash
+{ stdenvNoCC, fetchFromGitHub, cmake, clang_7, llvm_7, python, python3, doxygen, openssl, glibc, bash
     ,  BUILD_TYPE ? "RelWithDebInfo"
-    }:   
+   }:   
 
     stdenvNoCC.mkDerivation {  
         name = "openenclave-sdk";  
         version = "0.12.0";
 
-        nativeBuildInputs =  [ cmake llvm clang bash python python3 doxygen ];  
+        nativeBuildInputs =  [ cmake llvm_7 clang_7 bash python python3 doxygen ];  
         # Only one actual import to the package. Everything else is a build tool 
-        buildInputs = [ openssl ];  
+        buildInputs = [ glibc openssl ];  
         src = fetchFromGitHub { 
                       owner = "openenclave";
                       repo = "openenclave";
@@ -53,7 +53,7 @@
              description = "OpenEnclave SDK.";
              license = licenses.mit;
              maintainers = with maintainers; [ yakman2020  ];
-             platforms = [ "x86_64-linux" ];
+             platforms = [ "x86_64-linux" "aarch64-linux" ];
         };
 }  
 
